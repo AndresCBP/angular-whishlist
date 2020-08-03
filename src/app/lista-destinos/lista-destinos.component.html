@@ -1,6 +1,6 @@
 <div class="container content">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-5 offset-md-1">
             <span class="anchor" id="formLogin"></span>
             <div class="card card-outline-secondary">
                 <div class="card-header">
@@ -18,6 +18,16 @@
                         </div>
                         <button	type="submit" class="btn btn-primary" (click)="guardar(nombre.value, url.value)">Guardar!</button>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card card-outline-secondary">
+                <div class="card-header">
+                    <h3 class="mb-0">Destinos populares</h3>
+                </div>
+                <div class="card-body">
+                    <app-destino-popular *ngFor="let dp of destinosPopulares" [destinoPopular]="dp"></app-destino-popular>
                 </div>
             </div>
         </div>
