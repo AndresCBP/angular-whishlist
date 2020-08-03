@@ -7,8 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Whishlist with Angular';
-
-  agregar(titulo: HTMLInputElement)	{
-    console.log(titulo.value);
-  }
 }
