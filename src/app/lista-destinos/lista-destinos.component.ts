@@ -14,4 +14,9 @@ export class ListaDestinosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  guardar(nombre: string, url: string):boolean {
+    console.log(nombre)
+    console.log(url)
+    return false;
+  }
 }
