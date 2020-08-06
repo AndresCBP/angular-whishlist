@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { DestinoViajeComponent } from '../destino-viaje/destino-viaje.component';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DestinoViaje } from './../models/destino-viaje.model';
-
+import { DestinosApiClient } from './../models/destinos-api-client.model';
 @Component({
   selector: 'app-lista-destinos',
   templateUrl: './lista-destinos.component.html',
@@ -9,28 +8,27 @@ import { DestinoViaje } from './../models/destino-viaje.model';
 })
 export class ListaDestinosComponent implements OnInit {
   destinosPopulares: string[];
-  destinos: DestinoViaje[];
-  constructor() {
+  @Output() onItemAdded: EventEmitter<DestinoViaje>;
+  
+  constructor(private destinosApiClient:DestinosApiClient) {
     this.destinosPopulares = ['Bogota', 'Medellin', 'Cali'];
-    this.destinos = []; 
+    this.onItemAdded = new EventEmitter();
   }
 
   ngOnInit(): void {
   }
 
-  guardar(nombre: string, url: string):boolean {
-    this.destinos.push(new DestinoViaje(nombre, url));
-    return false;
+  agregado(d: DestinoViaje) {
+    this.destinosApiClient.add(d);
+    this.onItemAdded.emit(d);
   }
   guardarPopular(d: DestinoViaje) {
     this.destinosPopulares.push(d.nombre);
   }
 
-  elegido(d: DestinoViaje) {
-    this.destinos.forEach(function (x) {
-      x.setSelected(false);
-    });
-    this.guardarPopular(d);
-    d.setSelected(true);
+  elegido(e: DestinoViaje) {
+    this.destinosApiClient.getAll().forEach(x => e.setSelected(false));
+    this.guardarPopular(e);
+    e.setSelected(true);
   }
 }
