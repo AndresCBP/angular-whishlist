@@ -22,4 +22,15 @@ export class ListaDestinosComponent implements OnInit {
     this.destinos.push(new DestinoViaje(nombre, url));
     return false;
   }
+  guardarPopular(d: DestinoViaje) {
+    this.destinosPopulares.push(d.nombre);
+  }
+
+  elegido(d: DestinoViaje) {
+    this.destinos.forEach(function (x) {
+      x.setSelected(false);
+    });
+    this.guardarPopular(d);
+    d.setSelected(true);
+  }
 }
