@@ -11,7 +11,7 @@ export class ListaDestinosComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   updates: string[];
 
-  constructor(private destinosApiClient:DestinosApiClient) {
+  constructor(public destinosApiClient:DestinosApiClient) {
     this.onItemAdded = new EventEmitter();
     this.updates = [];
     this.destinosApiClient.subscribeOnChange((d: DestinoViaje) => {
