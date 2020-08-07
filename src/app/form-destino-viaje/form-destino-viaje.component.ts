@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DestinoViaje } from '../models/destino-viaje.model';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn } from '@angular/forms';
+
 @Component({
   selector: 'app-form-destino-viaje',
   templateUrl: './form-destino-viaje.component.html',
@@ -16,6 +17,7 @@ export class FormDestinoViajeComponent implements OnInit {
     this.fg = fb.group({
       nombre: ['', Validators.compose([
         Validators.required,
+        this.nombreValidator,
         this.nombreValidatorParametrizable(this.minLongitud)
       ])],
       url: ['',  Validators.required]

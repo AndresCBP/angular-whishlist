@@ -1,23 +1,30 @@
 import { DestinoViaje } from './../models/destino-viaje.model';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 export class DestinosApiClient{
-    private selected: boolean;
-    public servicios: string[];
-    public destinos: string[];
-    constructor(public nombre:string, public u:string) {
-        this.servicios = ['pileta', 'desayuno'];
-        this.destinos = ['Bogota']
+    public destinos: DestinoViaje[];
+    current: Subject<DestinoViaje> = new BehaviorSubject<DestinoViaje>(null);
+    constructor() {
+        this.destinos = [];
     }
-    add(d: DestinoViaje) {
 
+    add(d: DestinoViaje) {
+        this.destinos.push(d);
     }
-    getAll(): string[] {
+    getAll(): DestinoViaje[] {
         return this.destinos;
     }
-    isSelected(): boolean {
-        return this.selected;
+    getById(id: string): DestinoViaje {
+        return this.destinos.filter(function(d) {
+            return d.id.toString() === id;
+        })[0];
     }
-    setSelected(s: boolean) {
-        this.selected = s;
+    elegir(d: DestinoViaje) {
+        this.destinos.forEach(x => x.setSelected(false));
+        d.setSelected(true);
+        this.current.next(d);
+    }
+    subscribeOnChange(fn) {
+        this.current.subscribe(fn);
     }
 }
